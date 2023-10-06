@@ -10,11 +10,7 @@ export class AppComponent {
   @ViewChild('orderForm', { static: false }) orderForm: any;
   title = 'front-dashfleet-test';
   submitted = false;
-  documentTypes = [
-    { value: 'cc', name: 'C.C.' },
-    { value: 'di', name: 'D.I.' },
-    { value: 'pasaporte', name: 'Pasaporte' }
-  ];
+  resetFormEvent = false;
   orderQuery = {
     documentType: 'cc',
     documentNumber: '',
@@ -25,6 +21,7 @@ export class AppComponent {
   constructor(private ordersService: OrdersService) {}
 
   onSubmit() {
+    this.resetFormEvent = false;
     this.getOrderById(this.orderQuery.orderId);
   }
 
@@ -37,8 +34,8 @@ export class AppComponent {
   getOrderById(orderId: any) {
     this.ordersService.getOrderById(orderId).subscribe(
       (data: any) => {
-        if(data[0].document !== this.orderQuery.documentNumber) {
-          alert('El número de documento no coincide con el número de la orden');
+        if (data[0].document !== this.orderQuery.documentNumber) {
+          alert('El número de documento no coincide con el número en la orden');
           return;
         }
         const newData = data.map((order: any) => {
@@ -59,11 +56,7 @@ export class AppComponent {
   }
 
   resetForm() {
-    this.orderForm.reset({
-      documentType: 'cc',
-      documentNumber: '',
-      orderId: ''
-    });
+    this.resetFormEvent = true;
     this.submitted = false;
   }
 }

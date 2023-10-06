@@ -1,0 +1,47 @@
+<section class="grid justify-center gap-2">
+  <div class="text-white">
+    <span class="font-bold">Código pedido: </span>
+    <span>{{ orders[0].order_id }}</span>
+  </div>
+  <div class="text-white">
+    <span class="font-bold">Estado: </span>
+    <span>{{ orders[0].state }}</span>
+  </div>
+  <div class="text-white">
+    <span class="font-bold">Dirección de entrega: </span>
+    <span>{{ orders[0].direction }}</span>
+  </div>
+  <div class="text-white">
+    <span class="font-bold">Fecha de entrega: </span>
+    <span>{{ orders[0].delivery_date }}</span>
+  </div>
+  <div class="text-white">
+    <span class="font-bold">Nombre del cliente: </span>
+    <span>{{ orders[0].client_name }}</span>
+  </div>
+  <table class="mt-2 text-white">
+    <thead>
+      <tr>
+        <th class="border px-1">Producto</th>
+        <th class="border px-1">Referencia</th>
+        <th class="border px-1">Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td class="border px-1">{{ order.product_name }}</td>
+        <td class="border px-1">{{ order.ref }}</td>
+        <td class="border px-1">{{ order.quantity }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="bg-red-600 py-1 rounded font-bold mt-6" (click)="resetForm()">
+    Cerrar
+  </button>
+  <button
+    class="bg-yellow-400 py-1 rounded font-bold mt-2"
+    (click)="resetForm()"
+  >
+    Nueva consulta
+  </button>
+</section>
