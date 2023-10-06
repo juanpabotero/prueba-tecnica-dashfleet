@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Order } from './interfaces/order.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,7 @@ export class OrdersService {
 
   constructor(private http: HttpClient) {}
 
-  getOrders() {
-    return this.http.get(`${this.baseUrl}/orders`);
-  }
-
-  getOrderById(orderId: string) {
-    return this.http.get(`${this.baseUrl}/orders/${orderId}`);
+  getOrderById(orderId: string): Observable<Order[]> {
+    return this.http.get<Order[]>(`${this.baseUrl}/orders/${orderId}`);
   }
 }

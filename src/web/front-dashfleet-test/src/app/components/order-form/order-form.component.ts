@@ -6,6 +6,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
+import { OrderQuery } from 'src/app/interfaces/order.interface';
 
 @Component({
   selector: 'app-order-form',
@@ -13,7 +14,11 @@ import {
   styleUrls: ['./order-form.component.css']
 })
 export class OrderFormComponent implements OnChanges {
-  @Input() orderQuery: any;
+  @Input() orderQuery: OrderQuery = {
+    documentType: 'cc',
+    documentNumber: '',
+    orderId: ''
+  };
   @Input() resetFormEvent: boolean = false;
   @Output() onSubmitEvent: EventEmitter<number> = new EventEmitter();
   @ViewChild('orderForm', { static: false }) orderForm: any;

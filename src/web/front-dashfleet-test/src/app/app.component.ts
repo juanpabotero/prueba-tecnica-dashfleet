@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Order, OrderQuery } from './interfaces/order.interface';
 import { OrdersService } from './orders.service';
 
 @Component({
@@ -7,16 +8,15 @@ import { OrdersService } from './orders.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  @ViewChild('orderForm', { static: false }) orderForm: any;
-  title = 'front-dashfleet-test';
-  submitted = false;
-  resetFormEvent = false;
-  orderQuery = {
+  orders: Order[] = [];
+  orderQuery: OrderQuery = {
     documentType: 'cc',
     documentNumber: '',
     orderId: ''
   };
-  orders: any = [];
+  resetFormEvent = false;
+  submitted = false;
+  title = 'front-dashfleet-test';
 
   constructor(private ordersService: OrdersService) {}
 
@@ -25,13 +25,7 @@ export class AppComponent {
     this.getOrderById(this.orderQuery.orderId);
   }
 
-  getOrders() {
-    this.ordersService.getOrders().subscribe((data: any) => {
-      this.orders = data;
-    });
-  }
-
-  getOrderById(orderId: any) {
+  getOrderById(orderId: string) {
     this.ordersService.getOrderById(orderId).subscribe(
       (data: any) => {
         if (data[0].document !== this.orderQuery.documentNumber) {
